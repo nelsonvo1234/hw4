@@ -155,7 +155,7 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
         this->root_ = node;
     }
     else{
-        Node<Key, Value>* temp = this->root_;
+        AVLNode<Key, Value>* temp = static_cast<AVLNode<Key, Value>*>(this->root_);
         while(temp->getKey() != new_item.first){
             if(new_item.first > temp->getKey()){
                 if(temp->getRight() == nullptr){
@@ -180,6 +180,8 @@ void AVLTree<Key, Value>::insert (const std::pair<const Key, Value> &new_item)
         }
         if(temp->getKey() == new_item.first){
             temp->setValue(new_item.second);
+            delete node;
+            node = temp;
         }
     }
   node->setBalance(0);
